@@ -328,7 +328,7 @@ Pipeline Results:
 ## Setup Instructions
 
 ```bash
-git clone <repo>
+git clone https://github.com/anusha9573/Clovertex_RadiologyHub.git
 cd work-allocation
 python -m venv venv
 # mac/linux:
@@ -340,7 +340,7 @@ pip install -r requirements.txt
 
 Set `.env`:
 ```
-DB_DIALECT=sqlite
+DB_DIALECT=mysql
 HF_LLM_MODEL=distilgpt2
 ```
 
