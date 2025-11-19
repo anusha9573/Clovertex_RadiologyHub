@@ -311,6 +311,31 @@ Endpoints:
 - `/work/assign/{id}`
 
 ---
+## Python Environment (3.10+)
+
+### Core AI/ML/LLM Libraries & Dependencies
+- **Transformers (HuggingFace) >=4.30.0** – for large language model integration  
+- **sentence-transformers >=2.2.2** – for embedding generation and semantic search  
+- **torch (PyTorch) >=1.13.0** – model training and inference  
+- **faiss-cpu >=1.7.4** – optional, vector search acceleration for embeddings  
+- **numpy >=1.24.0** – numerical computations for ML pipelines  
+- **pandas >=2.0.0** – data processing and analysis for AI/ML workflows  
+- **joblib >=1.3.0** – efficient model or pipeline serialization  
+- **tqdm >=4.65.0** – progress bars for long-running ML tasks  
+- **requests >=2.31.0** – API calls for data retrieval or model interactions  
+
+### Web/Service Layer Supporting AI Workflows
+- **FastAPI >=0.109.0** – backend framework exposing ML/LLM APIs  
+- **Uvicorn (ASGI) >=0.23.0** – ASGI server for serving FastAPI endpoints  
+- **Pydantic >=2.4.0** – data validation and serialization in ML API inputs/outputs  
+
+### Databases for AI/ML Data Storage
+- **MySQL (mysql-connector-python >=8.1.0)** – primary structured DB for storing work requests, user inputs, and processed results  
+- **SQLite (builtin)** – optional fallback DB for lightweight or local testing  
+
+### Testing/Utilities (AI/ML Related Workflow Support)
+- **pytest >=7.4.0** – testing ML pipelines, API endpoints, and integrations  
+- **python-dotenv >=1.0.0** – managing environment variables like API keys and model paths
 
 ## End-to-End Pipeline Walkthrough
 
