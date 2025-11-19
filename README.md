@@ -69,7 +69,7 @@ The system is implemented using a **modular monolithic architecture**, providing
 
 - **Centralized Relational Database:** MySQL  and SQLite with auto-fallback initialization.  
 - **FastAPI REST Interface:** Provides clean API endpoints for UI integration, testing, and evaluation.  
-- **Mandatory LLM Explanation Generation:** Agent 5 always produces a human-readable justification using either HuggingFace generation or template fallback.  
+- **Mandatory LLM Explanation Generation:** Agent 5 always produces a human-readable justification using  HuggingFace generation 
 - Designed for **testability, extensibility, and performance**.
 
 ---
