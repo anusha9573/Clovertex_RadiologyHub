@@ -64,7 +64,8 @@ Radiology workflows require balancing specialty, availability, experience, and u
 
 The system is implemented using a **modular monolithic architecture**, providing the deployment simplicity of a single backend with the structural clarity of isolated modules.
 
-<img width="8287" height="3985" alt="image" src="https://github.com/user-attachments/assets/95cab61e-704d-4fb5-93a4-6bc325c88fa5" />
+<img width="1894" height="846" alt="Screenshot 2025-11-20 002747" src="https://github.com/user-attachments/assets/edf46b45-1f0c-408c-bcb3-c1e08d0118e3" />
+
 
 
 **Key Architectural Characteristics**
