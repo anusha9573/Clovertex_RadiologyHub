@@ -8,8 +8,13 @@ This project implements an AI-powered radiology work allocation system that inte
 ---
 
 
-**Output Response**
+**Output Response **
+
 <img width="1473" height="872" alt="Summary of Selected Radiologist" src="https://github.com/user-attachments/assets/2064b255-3d89-49c0-bab7-055f74994e30" />
+
+---
+
+
 <img width="1547" height="884" alt="Scoring Contribution" src="https://github.com/user-attachments/assets/f2fab4d5-2711-4ef3-a56a-e46cf0c55bb4" />
 
 ---
