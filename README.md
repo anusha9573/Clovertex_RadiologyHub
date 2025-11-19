@@ -3,8 +3,9 @@
 **A Modular Monolithic Agent-Based Workflow Engine**
 
 This project implements an AI-powered radiology work allocation system that intelligently assigns imaging cases (MRI, CT, X-Ray, Ultrasound, Mammography) to the most suitable radiologist based on specialty, skill level, workload, experience, availability, and case priority. The system uses a deterministic agent pipeline, a transparent scoring engine, and an LLM-driven explanation generator to produce professional, auditable assignment decisions.
+
+
 ---
-<img width="8287" height="3985" alt="image" src="https://github.com/user-attachments/assets/95cab61e-704d-4fb5-93a4-6bc325c88fa5" />
 
 
 **Output Response**
@@ -57,6 +58,9 @@ Radiology workflows require balancing specialty, availability, experience, and u
 ## Architecture Overview
 
 The system is implemented using a **modular monolithic architecture**, providing the deployment simplicity of a single backend with the structural clarity of isolated modules.
+
+<img width="8287" height="3985" alt="image" src="https://github.com/user-attachments/assets/95cab61e-704d-4fb5-93a4-6bc325c88fa5" />
+
 
 **Key Architectural Characteristics**
 
