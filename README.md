@@ -311,12 +311,12 @@ Endpoints:
 - `/work/assign/{id}`
 
 ---
-## Tech Stack
+### Tech Stack
 
 ### Python Environment (3.10+)
 
-### Core AI/ML/LLM Libraries & Dependencies
-- **Transformers (HuggingFace) >=4.30.0** – for large language model integration  
+#### Core Libraries & Dependencies
+- **Transformers (HuggingFace) >=4.30.0** – for large language model integration  [ Model Used HF_LLM_MODEL=distilgpt2, EMB_MODEL=all-MiniLM-L6-v2 ]
 - **sentence-transformers >=2.2.2** – for embedding generation and semantic search  
 - **torch (PyTorch) >=1.13.0** – model training and inference  
 - **faiss-cpu >=1.7.4** – optional, vector search acceleration for embeddings  
