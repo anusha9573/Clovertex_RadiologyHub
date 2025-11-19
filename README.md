@@ -138,7 +138,7 @@ Fallback Example:
 
 **Responsibilities:**
 - Fetch radiologists based on specialties.  
-- Optional FAISS-based semantic expansion for candidate enrichment.  
+- FAISS-based semantic expansion for candidate enrichment.  
 - Merge semantic candidates with DB candidates.
 
 Semantic Expansion Example:
@@ -318,13 +318,12 @@ Endpoints:
 #### Core Libraries & Dependencies
 - **Transformers (HuggingFace) >=4.30.0** – for large language model integration  [ Model Used HF_LLM_MODEL=distilgpt2, EMB_MODEL=all-MiniLM-L6-v2 ]
 - **sentence-transformers >=2.2.2** – for embedding generation and semantic search  
-- **torch (PyTorch) >=1.13.0** – model training and inference  
-- **faiss-cpu >=1.7.4** – optional, vector search acceleration for embeddings  
+- **torch (PyTorch) >=1.13.0** – model training and inference   
 - **numpy >=1.24.0** – numerical computations for ML pipelines  
 - **pandas >=2.0.0** – data processing and analysis for AI/ML workflows  
-- **joblib >=1.3.0** – efficient model or pipeline serialization  
+- **joblib >=1.3.0** – efficient model and pipeline serialization  
 - **tqdm >=4.65.0** – progress bars for long-running ML tasks  
-- **requests >=2.31.0** – API calls for data retrieval or model interactions  
+- **requests >=2.31.0** – API calls for data retrieval and model interactions  
 
 ### Web/Service Layer Supporting AI Workflows
 - **FastAPI >=0.109.0** – backend framework exposing ML/LLM APIs  
@@ -333,7 +332,7 @@ Endpoints:
 
 ### Databases for AI/ML Data Storage
 - **MySQL (mysql-connector-python >=8.1.0)** – primary structured DB for storing work requests, user inputs, and processed results  
-- **SQLite (builtin)** – optional fallback DB for lightweight or local testing  
+- **SQLite (builtin)** – fallback DB for lightweight and local testing  
 
 ### Testing/Utilities (AI/ML Related Workflow Support)
 - **pytest >=7.4.0** – testing ML pipelines, API endpoints, and integrations  
