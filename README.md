@@ -311,7 +311,9 @@ Endpoints:
 - `/work/assign/{id}`
 
 ---
-## Python Environment (3.10+)
+## Tech Stack
+
+### Python Environment (3.10+)
 
 ### Core AI/ML/LLM Libraries & Dependencies
 - **Transformers (HuggingFace) >=4.30.0** – for large language model integration  
