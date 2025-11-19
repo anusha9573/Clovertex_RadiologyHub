@@ -1,0 +1,35 @@
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Date</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for resource in resources %}
+		<tr>
+			<td>{{ resource.name }}</td>
+			<td>{{ resource.date }}</td>
+			<td>
+				{# ensure as_of_date is available in context (ISO string or date) #}
+				{% set asof = as_of_date %}
+				{# Compare strings if server passed ISO date strings, or compare date objects if passed as date #}
+				{% if resource.date is string %}
+					{% if resource.date <= asof %}
+						Available / Due
+					{% else %}
+						Future
+					{% endif %}
+				{% else %}
+					{% if resource.date <= asof %}
+						Available / Due
+					{% else %}
+						Future
+					{% endif %}
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

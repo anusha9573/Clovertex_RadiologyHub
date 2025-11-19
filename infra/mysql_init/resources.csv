@@ -1,0 +1,16 @@
+resource_id,name,specialty,skill_level,total_cases_handled
+R001,Dr. John Smith,General_Radiologist,4,178
+R002,Dr. Emily Brown,General_Radiologist,3,100
+R003,Dr. Michael Davis,General_Radiologist,3,172
+R004,Dr. Alex Johnson,General_Radiologist,4,217
+R005,Dr. Sarah Chen,Neurologist,5,345
+R006,Dr. James Wilson,Neurologist,2,33
+R007,Dr. Maria Garcia,Neurologist,4,226
+R008,Dr. Kevin Park,Neurologist,4,279
+R009,Dr. Robert Johnson,Cardiologist,4,189
+R010,Dr. Lisa Anderson,Cardiologist,3,100
+R011,Dr. Thomas White,Cardiologist,3,179
+R012,Dr. David Lee,Musculoskeletal_Specialist,5,385
+R013,Dr. Jennifer Martinez,Musculoskeletal_Specialist,1,61
+R014,Dr. Patricia Taylor,Breast_Imaging_Specialist,3,94
+R015,Dr. William Moore,Breast_Imaging_Specialist,5,374

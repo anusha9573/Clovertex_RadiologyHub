@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+	<!-- ...existing code... -->
+</head>
+<body>
+	<!-- ...existing code... -->
+	<form method="post" action="/allocate">
+		<!-- existing inputs -->
+		<!-- the newly-added date input -->
+		<input type="date" name="as_of_date" id="as_of_date"
+			value="{{ as_of_date if as_of_date is defined else '' }}" required />
+		<button type="submit">Allocate</button>
+	</form>
+	<!-- ...existing code... -->
+</body>
+</html>

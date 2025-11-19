@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Intelligent Work Allocation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 min-h-screen">
+    <div class="max-w-6xl mx-auto py-12 px-4 space-y-8">
+      <header class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-sm uppercase tracking-[0.3em] text-teal-500">
+            Clovertex Radiology Ops
+          </p>
+          <h1 class="text-3xl font-semibold text-slate-900">
+            Intelligent Work Allocation Console
+          </h1>
+          <p class="text-slate-500">
+            Coordinate radiology workloads with transparent agent-driven scoring and AI explanations.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a
+            href="/docs"
+            class="px-4 py-2 text-sm font-medium text-teal-600 border border-teal-200 rounded-md hover:bg-teal-50"
+          >
+            API Reference
+          </a>
+        </div>
+      </header>
+
+      <main class="grid gap-6 md:grid-cols-[360px,1fr]">
+        <section class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 space-y-5">
+          <div>
+            <h2 class="text-sm uppercase tracking-wide text-slate-500 font-semibold">
+              Intake form
+            </h2>
+            <p class="text-slate-500 text-sm">
+              Describe the request and run the agent pipeline end-to-end.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <label class="block text-sm font-medium text-slate-700">
+              Work Type
+              <select
+                id="work_type"
+                class="mt-1 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option value="MRI_Brain">MRI_Brain</option>
+                <option value="CT_Scan_Brain">CT_Scan_Brain</option>
+                <option value="MRI_Cardiac">MRI_Cardiac</option>
+                <option value="CT_Scan_Chest">CT_Scan_Chest</option>
+                <option value="X_Ray_Bone">X_Ray_Bone</option>
+                <option value="X_Ray_Chest">X_Ray_Chest</option>
+                <option value="Ultrasound_Abdomen">Ultrasound_Abdomen</option>
+                <option value="Mammography">Mammography</option>
+              </select>
+            </label>
+
+            <label class="block text-sm font-medium text-slate-700">
+              Priority (1–5)
+              <input
+                id="priority"
+                type="number"
+                min="1"
+                max="5"
+                value="3"
+                class="mt-1 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+            </label>
+
+            <label class="block text-sm font-medium text-slate-700">
+              Clinical notes
+              <textarea
+                id="description"
+                rows="4"
+                class="mt-1 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                placeholder="e.g. '52F, acute neurological deficit, MRI brain with stroke protocol...'"
+              ></textarea>
+            </label>
+
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <label class="block text-sm font-medium text-slate-700">
+                Scheduled date
+                <input
+                  id="scheduled_date"
+                  type="date"
+                  class="mt-1 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </label>
+              <label class="block text-sm font-medium text-slate-700">
+                Scheduled time
+                <input
+                  id="scheduled_time"
+                  type="time"
+                  class="mt-1 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3 pt-1">
+            <button
+              id="btn_run_pipeline"
+              class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-teal-500 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Run full assignment workflow
+            </button>
+            <button
+              id="btn_list_resources"
+              class="w-full inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+              type="button"
+            >
+              View available radiologists
+            </button>
+          </div>
+          <p id="status" class="text-sm text-slate-500 h-5"></p>
+        </section>
+
+        <section class="space-y-5">
+          <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 space-y-4">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs uppercase tracking-[0.25em] text-teal-500 font-semibold">
+                  Assignment rationale
+                </p>
+                <h2 class="text-xl font-semibold text-slate-900">
+                  Selected radiologist
+                </h2>
+              </div>
+              <span
+                id="priority_badge"
+                class="inline-flex items-center rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-600"
+              >
+                Priority —
+              </span>
+            </div>
+            <p id="explanation_text" class="text-slate-700 leading-relaxed">
+              No assignment has been generated yet. Run the pipeline to see recommendations.
+            </p>
+          </div>
+
+          <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-400">
+                  Lead consultant
+                </p>
+                <div class="flex flex-wrap items-baseline gap-2">
+                  <span id="doctor_name" class="text-2xl font-semibold text-slate-900">
+                    —
+                  </span>
+                  <span
+                    id="doctor_specialty"
+                    class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700"
+                  >
+                    —
+                  </span>
+                </div>
+              </div>
+              <div class="text-right text-sm text-slate-500">
+                <p id="doctor_cases">Cases handled —</p>
+                <p id="doctor_availability">Availability —</p>
+                <p id="doctor_schedule">Scheduled slot —</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+              <div class="rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+                <p class="text-xs text-slate-500 uppercase">Current workload</p>
+                <p id="doctor_workload" class="text-lg font-semibold text-slate-900">
+                  —
+                </p>
+              </div>
+              <div class="rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+                <p class="text-xs text-slate-500 uppercase">Skill level</p>
+                <p id="doctor_skill" class="text-lg font-semibold text-slate-900">
+                  —
+                </p>
+              </div>
+              <div class="rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+                <p class="text-xs text-slate-500 uppercase">Match score</p>
+                <p id="doctor_score" class="text-lg font-semibold text-teal-600">
+                  —
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <p class="text-xs uppercase tracking-[0.3em] text-slate-400">
+                  Scoring justification
+                </p>
+                <h3 class="text-lg font-semibold text-slate-900">Feature contributions</h3>
+              </div>
+              <span class="text-sm text-slate-500" id="work_context">—</span>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-slate-100">
+              <table class="min-w-full divide-y divide-slate-100 text-sm">
+                <thead class="bg-slate-50 text-slate-500 text-left">
+                  <tr>
+                    <th class="px-4 py-3 font-medium">Factor</th>
+                    <th class="px-4 py-3 font-medium">Contribution</th>
+                    <th class="px-4 py-3 font-medium">Details</th>
+                  </tr>
+                </thead>
+                <tbody id="score_rows" class="divide-y divide-slate-100 bg-white">
+                  <tr>
+                    <td colspan="3" class="px-4 py-4 text-center text-slate-400">
+                      No scoring data yet.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.3em] text-slate-400">
+                  Alternative coverage
+                </p>
+                <h3 class="text-lg font-semibold text-slate-900">Next-best radiologists</h3>
+              </div>
+              <span id="alt_count" class="text-sm text-slate-500">—</span>
+            </div>
+            <div id="alternatives_list" class="space-y-3">
+              <div class="rounded-xl border border-dashed border-slate-200 p-4 text-sm text-slate-500">
+                Run the pipeline to see alternative options and their justification.
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.3em] text-slate-400">
+                  Network capacity
+                </p>
+                <h3 class="text-lg font-semibold text-slate-900">
+                  Radiologists on duty
+                </h3>
+              </div>
+              <span id="resources_meta" class="text-sm text-slate-500">—</span>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-slate-100">
+              <table class="min-w-full divide-y divide-slate-100 text-sm">
+                <thead class="bg-slate-50 text-slate-500 text-left">
+                  <tr>
+                    <th class="px-4 py-3 font-medium">Name</th>
+                    <th class="px-4 py-3 font-medium">Specialty</th>
+                    <th class="px-4 py-3 font-medium">Shift</th>
+                    <th class="px-4 py-3 font-medium">Current workload</th>
+                  </tr>
+                </thead>
+                <tbody id="resources_rows" class="divide-y divide-slate-100 bg-white">
+                  <tr>
+                    <td colspan="4" class="px-4 py-4 text-center text-slate-400">
+                      Click “View available radiologists” to load roster.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      async function apiRequest(path, options = {}) {
+        const res = await fetch(path, {
+          headers: { "Content-Type": "application/json" },
+          ...options,
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(data.detail || JSON.stringify(data));
+        }
+        return data;
+      }
+
+      function setStatus(msg, isError = false) {
+        const el = document.getElementById("status");
+        el.textContent = msg || "";
+        el.className = isError ? "text-sm text-rose-500 h-5" : "text-sm text-teal-600 h-5";
+      }
+
+      function formatNumber(value) {
+        if (value === null || value === undefined || value === "") return "—";
+        return Number(value).toLocaleString();
+      }
+
+      function highlightTopFactor(breakdown) {
+        const entries = Object.entries(breakdown || {}).sort((a, b) => b[1] - a[1]);
+        if (!entries.length) return "Insufficient data";
+        const [label, value] = entries[0];
+        return `${label.replace("_", " ")} (${Number(value).toFixed(2)})`;
+      }
+
+      function deriveLimitation(candidate) {
+        if (candidate.current_workload && candidate.current_workload > 6) {
+          return `High workload (${candidate.current_workload})`;
+        }
+        const breakdown = candidate.breakdown || {};
+        const entries = Object.entries(breakdown).sort((a, b) => a[1] - b[1]);
+        if (!entries.length) return "Limited data";
+        const [label, value] = entries[0];
+        return `${label.replace("_", " ")} (${Number(value).toFixed(2)})`;
+      }
+
+      function renderAssignment(assignment) {
+        if (!assignment) return;
+        const explanation = assignment.explanation || "No explanation available.";
+        const workType = assignment.work_type || "—";
+        const priority = assignment.priority ?? "—";
+        const scheduled = assignment.scheduled_timestamp
+          ? new Date(assignment.scheduled_timestamp).toLocaleString()
+          : "—";
+        const candidates = assignment.scored_candidates || [];
+        const selected = assignment.selected || candidates[0];
+
+        document.getElementById("explanation_text").textContent = explanation;
+        document.getElementById("priority_badge").textContent =
+          `Priority ${priority} • ${workType}`;
+
+        if (!selected) {
+          document.getElementById("doctor_name").textContent = "No matching radiologist";
+          document.getElementById("doctor_specialty").textContent = "—";
+          document.getElementById("doctor_cases").textContent = "Cases handled —";
+          document.getElementById("doctor_availability").textContent = "Availability —";
+          document.getElementById("doctor_schedule").textContent = `Scheduled slot ${scheduled}`;
+          document.getElementById("doctor_workload").textContent = "—";
+          document.getElementById("doctor_skill").textContent = "—";
+          document.getElementById("doctor_score").textContent = "—";
+          document.getElementById("work_context").textContent = "No scoring data";
+          document.getElementById("score_rows").innerHTML = `
+            <tr><td colspan="3" class="px-4 py-4 text-center text-slate-400">
+            No scoring data available.</td></tr>`;
+          document.getElementById("alternatives_list").innerHTML = `
+            <div class="rounded-xl border border-dashed border-slate-200 p-4 text-sm text-slate-500">
+              No alternative candidates returned for this request.
+            </div>`;
+          document.getElementById("alt_count").textContent = "0 alternatives";
+          return;
+        }
+
+        document.getElementById("doctor_name").textContent =
+          selected.name || selected.resource_id || "Selected resource";
+        document.getElementById("doctor_specialty").textContent =
+          selected.specialty || "Specialty unknown";
+        document.getElementById("doctor_cases").textContent =
+          `Cases handled ${formatNumber(selected.total_cases_handled)}`;
+        document.getElementById("doctor_availability").textContent =
+          selected.availability_window
+            ? `Shift ${selected.availability_window}`
+            : "Availability not published";
+        document.getElementById("doctor_schedule").textContent = `Scheduled slot ${scheduled}`;
+        document.getElementById("doctor_workload").textContent =
+          selected.current_workload !== undefined && selected.current_workload !== null
+            ? `${selected.current_workload} active studies`
+            : "Not reported";
+        document.getElementById("doctor_skill").textContent =
+          selected.skill_level ? `Level ${selected.skill_level}/5` : "—";
+        document.getElementById("doctor_score").textContent =
+          selected.score !== undefined ? selected.score.toFixed(2) : "—";
+        document.getElementById("work_context").textContent =
+          `${workType} • Priority ${priority}`;
+
+        const breakdown = selected.breakdown || {};
+        const scoringRows = [
+          { label: "Role match", key: "role", detail: selected.specialty || "—" },
+          { label: "Skill level", key: "skill", detail: `Level ${selected.skill_level || "—"}` },
+          {
+            label: "Experience",
+            key: "experience",
+            detail: `${formatNumber(selected.total_cases_handled)} cases`,
+          },
+          { label: "Availability", key: "availability", detail: selected.availability_window || "—" },
+          { label: "Workload", key: "workload", detail: `${selected.current_workload ?? "—"} in progress` },
+          { label: "Priority bonus", key: "priority_bonus", detail: `Priority ${priority}` },
+        ];
+
+        document.getElementById("score_rows").innerHTML = scoringRows
+          .map(
+            (row) => `
+              <tr>
+                <td class="px-4 py-3 font-medium text-slate-800">${row.label}</td>
+                <td class="px-4 py-3 text-teal-600 font-semibold">
+                  ${breakdown[row.key] !== undefined ? Number(breakdown[row.key]).toFixed(2) : "—"}
+                </td>
+                <td class="px-4 py-3 text-slate-600">${row.detail}</td>
+              </tr>`
+          )
+          .join("");
+
+        const alternatives = candidates.slice(1);
+        document.getElementById("alt_count").textContent =
+          alternatives.length > 0
+            ? `${alternatives.length} alternative${alternatives.length > 1 ? "s" : ""}`
+            : "No alternatives";
+        document.getElementById("alternatives_list").innerHTML =
+          alternatives.length === 0
+            ? `<div class="rounded-xl border border-dashed border-slate-200 p-4 text-sm text-slate-500">
+                No alternative candidates returned for this request.
+               </div>`
+            : alternatives
+                .map((candidate) => {
+                  const b = candidate.breakdown || {};
+                  return `
+                    <div class="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-4">
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="text-sm font-semibold text-slate-900">${candidate.name || candidate.resource_id}</p>
+                          <p class="text-xs text-slate-500">${candidate.specialty || "Specialty unknown"}</p>
+                        </div>
+                        <span class="text-sm font-semibold text-slate-600">${candidate.score?.toFixed(2) ?? "—"}</span>
+                      </div>
+                      <div class="mt-3 grid grid-cols-2 gap-3 text-xs text-slate-600">
+                        <div class="rounded-lg bg-white px-3 py-2 border border-slate-100">
+                          <p class="text-[11px] uppercase text-slate-400">Strength</p>
+                          <p>${highlightTopFactor(b)}</p>
+                        </div>
+                        <div class="rounded-lg bg-white px-3 py-2 border border-slate-100">
+                          <p class="text-[11px] uppercase text-slate-400">Limitation</p>
+                          <p>${deriveLimitation(candidate)}</p>
+                        </div>
+                      </div>
+                    </div>`;
+                })
+                .join("");
+      }
+
+      function renderResources(resources, filters = {}) {
+        const badges = [`${resources.length} clinicians`];
+        if (filters.date) badges.push(`date ${filters.date}`);
+        if (filters.time) badges.push(`time ${filters.time}`);
+        document.getElementById("resources_meta").textContent = badges.join(" • ");
+
+        if (!resources.length) {
+          document.getElementById("resources_rows").innerHTML = `
+            <tr><td colspan="4" class="px-4 py-4 text-center text-slate-400">
+              No resources available.
+            </td></tr>`;
+          return;
+        }
+
+        document.getElementById("resources_rows").innerHTML = resources
+          .map(
+            (r) => `
+            <tr>
+              <td class="px-4 py-3 font-medium text-slate-800">${r.name}</td>
+              <td class="px-4 py-3 text-slate-600">${r.specialty}</td>
+              <td class="px-4 py-3 text-slate-600">${r.availability_window || "—"}</td>
+              <td class="px-4 py-3 text-slate-600">${r.current_workload ?? "—"}</td>
+            </tr>`
+          )
+          .join("");
+      }
+
+      async function runPipeline() {
+        const btn = document.getElementById("btn_run_pipeline");
+        btn.disabled = true;
+        setStatus("Submitting work and running agents…");
+
+        const work_type = document.getElementById("work_type").value;
+        const priority = parseInt(document.getElementById("priority").value || "3", 10);
+        const description =
+          document.getElementById("description").value.trim() || "No description provided.";
+        const scheduled_date = document.getElementById("scheduled_date").value;
+        const scheduled_time = document.getElementById("scheduled_time").value;
+
+        if (!scheduled_date || !scheduled_time) {
+          setStatus("Scheduled date and time are required.", true);
+          btn.disabled = false;
+          return;
+        }
+
+        try {
+          const addRes = await apiRequest("/add_work", {
+            method: "POST",
+            body: JSON.stringify({
+              work_type,
+              description,
+              priority,
+              scheduled_date,
+              scheduled_time,
+            }),
+          });
+          const workId = addRes.result.work_id;
+          const assignRes = await apiRequest(`/assign/${workId}`, { method: "POST" });
+          renderAssignment(assignRes.assignment);
+          setStatus(`Assignment complete • work_id ${workId}`);
+        } catch (err) {
+          console.error(err);
+          setStatus(err.message || String(err), true);
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      async function listResources() {
+        const btn = document.getElementById("btn_list_resources");
+        btn.disabled = true;
+        setStatus("Loading resources…");
+        const date = document.getElementById("scheduled_date").value;
+        const time = document.getElementById("scheduled_time").value;
+        try {
+          let endpoint = "/resources";
+          if (date) {
+            const params = new URLSearchParams({ target_date: date });
+            if (time) params.append("target_time", time);
+            endpoint = `/resources/on-duty?${params.toString()}`;
+          }
+          const data = await apiRequest(endpoint);
+          renderResources(data.resources || [], data.filters || {});
+          setStatus("");
+        } catch (err) {
+          console.error(err);
+          setStatus(err.message || String(err), true);
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      document.getElementById("btn_run_pipeline").addEventListener("click", (e) => {
+        e.preventDefault();
+        runPipeline();
+      });
+      document.getElementById("btn_list_resources").addEventListener("click", (e) => {
+        e.preventDefault();
+        listResources();
+      });
+    </script>
+  </body>
+</html>
+

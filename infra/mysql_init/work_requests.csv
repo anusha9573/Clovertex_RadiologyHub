@@ -1,0 +1,23 @@
+work_id,work_type,description,priority,scheduled_timestamp,status,assigned_to
+W001,CT_Scan_Chest,Lung nodule - URGENT,4,2024-11-12 07:17:00,pending,
+W002,MRI_Brain,Acute stroke evaluation - URGENT,4,2024-11-12 03:47:00,completed,R011
+W003,CT_Scan_Chest,Cancer staging,1,2024-11-10 13:13:00,pending,
+W004,CT_Scan_Brain,Head trauma assessment,3,2024-11-12 04:34:00,pending,
+W005,Mammography,Annual screening,3,2024-11-10 08:48:00,assigned,R015
+W006,Ultrasound_Abdomen,Kidney stone suspected,2,2024-11-10 21:48:00,pending,
+W007,CT_Scan_Chest,Cancer staging,1,2024-11-11 06:38:00,pending,
+W008,CT_Scan_Brain,Post-surgery follow-up,2,2024-11-11 08:05:00,pending,
+W009,X_Ray_Bone,Joint pain evaluation,3,2024-11-10 10:42:00,pending,
+W010,X_Ray_Chest,Annual checkup,3,2024-11-10 14:24:00,pending,
+W011,X_Ray_Bone,Joint pain evaluation,2,2024-11-10 21:42:00,pending,
+W012,CT_Scan_Chest,COVID complications,2,2024-11-10 23:10:00,pending,
+W013,X_Ray_Chest,Cough and fever,3,2024-11-10 11:14:00,assigned,R009
+W014,X_Ray_Bone,Arthritis follow-up,2,2024-11-10 21:58:00,completed,R013
+W015,X_Ray_Bone,Joint pain evaluation,3,2024-11-11 09:56:00,completed,R005
+W016,Mammography,Follow-up abnormal mammogram,2,2024-11-10 23:47:00,pending,
+W017,X_Ray_Chest,Follow-up pneumonia,3,2024-11-11 09:23:00,pending,
+W018,MRI_Brain,Neurological symptoms,1,2024-11-10 11:55:00,pending,
+W019,MRI_Brain,Neurological symptoms,2,2024-11-11 08:24:00,pending,
+W020,Mammography,Annual screening,3,2024-11-10 08:43:00,assigned,R013
+W021,MRI_Brain,Stroke protocol - CRITICAL,5,2024-11-12 14:30:00,pending,
+W022,MRI_Cardiac,Post-heart attack - CRITICAL,5,2024-11-12 15:45:00,pending,

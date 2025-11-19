@@ -1,0 +1,21 @@
+# LLM & embeddings
+transformers>=4.30.0
+sentence-transformers>=2.2.2
+torch>=1.13.0
+faiss-cpu>=1.7.4
+
+# optional utilities
+tqdm
+numpy
+joblib
+fastapi
+uvicorn[standard]
+python-dotenv
+mysql-connector-python
+requests
+transformers
+sentence-transformers
+torch
+faiss-cpu
+numpy
+tqdm

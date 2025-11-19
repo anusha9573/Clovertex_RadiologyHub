@@ -1,0 +1,9 @@
+work_type,required_specialty,alternate_specialty
+CT_Scan_Brain,Neurologist,General_Radiologist
+CT_Scan_Chest,General_Radiologist,
+MRI_Brain,Neurologist,General_Radiologist
+MRI_Cardiac,Cardiologist,General_Radiologist
+X_Ray_Chest,General_Radiologist,
+X_Ray_Bone,Musculoskeletal_Specialist,General_Radiologist
+Ultrasound_Abdomen,General_Radiologist,
+Mammography,Breast_Imaging_Specialist,General_Radiologist
