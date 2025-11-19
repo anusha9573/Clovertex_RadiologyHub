@@ -67,7 +67,7 @@ The system is implemented using a **modular monolithic architecture**, providing
   ↓  
   AssignmentAgent (LLM Explanation)
 
-- **Centralized Relational Database:** MySQL (preferred) or SQLite with auto-fallback initialization.  
+- **Centralized Relational Database:** MySQL  and SQLite with auto-fallback initialization.  
 - **FastAPI REST Interface:** Provides clean API endpoints for UI integration, testing, and evaluation.  
 - **Mandatory LLM Explanation Generation:** Agent 5 always produces a human-readable justification using either HuggingFace generation or template fallback.  
 - Designed for **testability, extensibility, and performance**.
